@@ -7,9 +7,9 @@ def search_video(query):
 
     return video_url
 
-def download_video_audio(url):
+def download_video_audio(url, path=None):
     yt = YouTube(url)
     ys = yt.streams.get_audio_only()
     print('Baixando:', yt.title)
-    ys.download()
+    ys.download(output_path=path)
     print("Música baixada com sucesso!")
