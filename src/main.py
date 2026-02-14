@@ -1,4 +1,4 @@
-from config import get_client
+from src.config import get_client
 import requests
 
 def download_image(url, nome_arquivo):
@@ -37,7 +37,4 @@ def display_menu():
         playlist_url = input('Digite o link da playlist: ')
         playlist_id = playlist_url.split("/")[-1].split("?")[0]
         get_playlist_image(client, playlist_id)
-
-if __name__ == '__main__':
-    display_menu()
 
