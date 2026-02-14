@@ -29,12 +29,19 @@ def get_artist_image(client, artist_id):
     
     download_image(image_url, 'perfil_artista.jpg')
 
+def get_user_image(client, user_id):
+    user = client.user(user_id)
+    image_url = user['images'][0]['url']
+    
+    download_image(image_url, 'perfil_usuário.jpg')
+
 def display_menu():
     client = get_client()
     print('Escolha uma opção: ')
     print('[1] - Baixar capa de album')
     print('[2] - Baixar imagem de playlist')
     print('[3] - Baixar imagem de perfil de artista')
+    print('[4] - Baixar imagem de perfil de usuário')
     escolha = int(input())
     if escolha == 1:
         album_url = input('Digite o link do álbum: ')
@@ -48,4 +55,10 @@ def display_menu():
         artist_url = input('Digite o link do perfil do artista: ')
         artist_id = artist_url.split("/")[-1].split("?")[0]
         get_artist_image(client, artist_id)
+    if escolha == 4:
+        user_url = input('Digite o link do perfil do usuário: ')
+        user_id = user_url.split("/")[-1].split("?")[0]
+        get_user_image(client, user_id)
+
+
 
