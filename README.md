@@ -1,11 +1,12 @@
-# spotpull v1.2.0
-Spotpull é uma ferramenta para baixar imagens do Spotify
+# spotpull v1.3.0
+Spotpull é uma ferramenta para baixar arquivos, incluindo músicas, do Spotify
 
 ---
 
 # Funcionalidades
-- Baixar capas de albuns a partir do link do album
-- Baixar imagens de playlists a partir do link da playlist
+- (Novo!) Baixar músicas 
+- Baixar capas de albuns
+- Baixar imagens de playlists
 - Baixar foto de perfil de artistas
 - Baixar foto de perfil de usuários
 

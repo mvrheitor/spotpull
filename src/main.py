@@ -1,5 +1,7 @@
 from src.config import get_client
 import requests
+from pytubefix import YouTube
+from pytubefix import Search
 
 def download_image(url, nome_arquivo):
     resposta = requests.get(url)
@@ -35,6 +37,24 @@ def get_user_image(client, user_id):
     
     download_image(image_url, 'perfil_usuário.jpg')
 
+def get_music(client, music_id):
+    music = client.track(music_id)
+    
+    # monta a query para buscar no youtube
+    query = music['name']
+    for i in music['artists']:
+        query += f' {i['name']}'
+
+    # pega o primeiro resultado
+    videos = Search(query).videos
+    video_url = videos[1].watch_url
+
+    # pega o vídeo e baixa somente o áudio
+    yt = YouTube(video_url)
+    ys = yt.streams.get_audio_only()
+    print('Baixando:', yt.title)
+    ys.download()
+
 def display_menu():
     client = get_client()
     print('Escolha uma opção: ')
@@ -42,6 +62,7 @@ def display_menu():
     print('[2] - Baixar imagem de playlist')
     print('[3] - Baixar imagem de perfil de artista')
     print('[4] - Baixar imagem de perfil de usuário')
+    print('[5] - Baixar música')
     escolha = int(input())
     if escolha == 1:
         album_url = input('Digite o link do álbum: ')
@@ -59,6 +80,7 @@ def display_menu():
         user_url = input('Digite o link do perfil do usuário: ')
         user_id = user_url.split("/")[-1].split("?")[0]
         get_user_image(client, user_id)
-
-
-
+    if escolha == 5:
+        music_url = input('Digite o link da música: ')
+        music_id = music_url.split("/")[-1].split("?")[0]
+        get_music(client, music_id)

@@ -3,3 +3,5 @@
 *.jpg
 __pycache__/
 .cache
+testes.py
+*.m4a
