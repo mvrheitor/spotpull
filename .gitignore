@@ -1,6 +1,5 @@
 .venv/
 .env
-imagem_playlist.jpg
-capa_album.jpg
+*.jpg
 __pycache__/
 .cache
