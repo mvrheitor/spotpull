@@ -1,41 +1,6 @@
 from src.config import get_client
-import requests
-from pytubefix import YouTube
-from pytubefix import Search
-
-def download_image(url, nome_arquivo):
-    resposta = requests.get(url)
-
-    if resposta.status_code == 200:
-        with open(nome_arquivo, 'wb') as f:
-            f.write(resposta.content)
-        print("Imagem baixada com sucesso!")
-    else:
-        print("Falha ao baixar a imagem.")
-
-def get_album_cover(client, album_id):
-    album = client.album(album_id)
-    cover_url = album['images'][0]['url']
-
-    download_image(cover_url, 'capa_album.jpg')
-
-def get_playlist_image(client, playlist_id):
-    playlist = client.playlist(playlist_id)
-    image_url = playlist['images'][0]['url']
-    
-    download_image(image_url, 'imagem_playlist.jpg')
-
-def get_artist_image(client, artist_id):
-    artist = client.artist(artist_id)
-    image_url = artist['images'][0]['url']
-    
-    download_image(image_url, 'perfil_artista.jpg')
-
-def get_user_image(client, user_id):
-    user = client.user(user_id)
-    image_url = user['images'][0]['url']
-    
-    download_image(image_url, 'perfil_usuário.jpg')
+from src.get_images import get_album_cover, get_artist_image, get_playlist_image, get_user_image
+from src.youtube_scripts import search_video, download_video_audio
 
 def get_music(client, music_id):
     music = client.track(music_id)
@@ -45,15 +10,8 @@ def get_music(client, music_id):
     for i in music['artists']:
         query += f' {i['name']}'
 
-    # pega o primeiro resultado
-    videos = Search(query).videos
-    video_url = videos[1].watch_url
-
-    # pega o vídeo e baixa somente o áudio
-    yt = YouTube(video_url)
-    ys = yt.streams.get_audio_only()
-    print('Baixando:', yt.title)
-    ys.download()
+    video_url = search_video(query)
+    download_video_audio(video_url)
 
 def display_menu():
     client = get_client()

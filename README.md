@@ -1,4 +1,4 @@
-# spotpull v2.0.0
+# spotpull v2.0.1
 Spotpull é uma ferramenta para baixar arquivos, incluindo músicas, do Spotify
 
 ---
